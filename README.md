@@ -1,4 +1,4 @@
-# datomic-compare
+# datomic-transactions
 
 A Clojure library designed to help compare generated datomic transaction data
 

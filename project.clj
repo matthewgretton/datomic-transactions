@@ -1,4 +1,4 @@
-(defproject datomic-compare "0.1.0-SNAPSHOT"
+(defproject datomic-transactions "0.1.0-SNAPSHOT"
   :description "Library for logically comparing datomic transaction data"
 
   :url "http://example.com/FIXME"
