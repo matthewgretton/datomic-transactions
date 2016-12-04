@@ -1,4 +1,4 @@
-(ns datomic-transactions.id-coercion
+(ns datomic-transactions.coerce
   "Code to check the consistency of transaxion data output.
 
   It's difficult to test code that prouduces transaction data, as temporary ids are generated randomly. The code in
@@ -87,13 +87,12 @@
 (defn adjust-actual
   "For example ({:db/id :bob} {:db/id 1234 :db/ident :bob}) -> {:db/id :bob}"
   [expected actual]
-  (if-let [ident (:db/ident expected)]
+  (if-let [ident (:db/ident actual)]
     (-> actual
         (dissoc :db/ident)
         (assoc :db/id ident))
     actual))
 
-(adjust-actual {:db/id :bob} {:db/id 1234 :db/ident :bob})
 
 (defn coerce-entities-ids [actual-entities expected-entities]
   "Make all actual entity ids consistent with the expected entity ids."

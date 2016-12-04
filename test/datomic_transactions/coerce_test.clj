@@ -1,11 +1,29 @@
-(ns datomic-transactions.id-coercion-test
+(ns datomic-transactions.coerce-test
   "Tests to show how the make-ids-consistent function works"
-  (:require [datomic-transactions.id-coercion :as id-func]
+  (:require [datomic-transactions.coerce :as coerce]
             [clojure.test :refer :all]
             [datomic.api :as d]))
 
+
+(deftest test-adjust-actual
+
+  (is (= (coerce/adjust-actual {:db/id :bob} {:db/id 1234 :db/ident :bob})
+         {:db/id :bob}))
+
+  (is (= (coerce/adjust-actual {:db/id 1234 :db/ident :bob} {:db/id 1234 :db/ident :bob})
+         {:db/id 1234
+          :db/ident :bob}))
+
+  (is (= (coerce/adjust-actual {:db/id 1234} {:db/id 1234 :db/ident :bob})
+         {:db/id 1234}))
+
+  )
+
+
+
+
 (defn create-comparable-output [desc actual expected expected-output]
-  (let [actual-made-consistent (id-func/coerce-entities-ids actual expected)]
+  (let [actual-made-consistent (coerce/coerce-entities-ids actual expected)]
     [expected-output actual-made-consistent desc]))
 
 (deftest make-ids-consistent-tests
