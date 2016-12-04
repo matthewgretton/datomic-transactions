@@ -13,4 +13,4 @@
                  [com.datomic/datomic-pro "0.9.5394"]
                  [cursive/datomic-stubs "0.9.5153" :scope "provided"]
                  [spyscope "0.1.5"]
-                 [clojure-utils "1.0.0"]])
+                 [clojure-utils "0.1.0-SNAPSHOT"]])
