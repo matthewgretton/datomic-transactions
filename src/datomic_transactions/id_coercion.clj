@@ -3,8 +3,8 @@
 
   It's difficult to test code that prouduces transaction data, as temporary ids are generated randomly. The code in
   this gist provides a way to test the equivalence of two transactions."
-  (:require [datomic-transactions.util.bimap :as bimap]
-            [datomic-transactions.util.core :as core]))
+  (:require [clojure-utils.bimap :as bimap]
+            [clojure-utils.core :as core]))
 
 
 (defn is-transacted-db-id? [id]
@@ -47,7 +47,7 @@
   ([actual-entity expected-entity]
    (coerce-entity-ids actual-entity expected-entity (bimap/create-empty)))
   ([actual-entity expected-entity input-exp-act-bimap]
-   (->>  (core/flatten-for-keys expected-entity :db/id :db/ident)
+   (->>  (core/flatten-upto-keys expected-entity :db/id :db/ident)
         (reduce
           (fn [[exp-act-bimap output] [expected-id-map-path {expected-id :db/id expected-ident :db/ident}]]
             (let [{actual-id :db/id
